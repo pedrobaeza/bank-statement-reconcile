@@ -166,7 +166,7 @@ class AccountStatementProfil(Model):
         prof = prof_obj.browse(cr, uid, profile_id, context=context)
 
         parser = new_bank_statement_parser(prof.import_type, ftype=ftype)
-        result_row_list = parser.parse(file_stream)
+        result_row_list = parser.parse(file_stream, prof)
         # Check all key are present in account.bank.statement.line!!
         if not result_row_list:
             raise osv.except_osv(_("Nothing to import"),
