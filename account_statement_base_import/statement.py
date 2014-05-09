@@ -165,10 +165,8 @@ class AccountStatementProfil(Model):
                                  _("You must provide a valid profile to import a bank statement!"))
         prof = prof_obj.browse(cr, uid, profile_id, context=context)
 
-        parser = new_bank_statement_parser(prof.import_type, ftype=ftype)
-        # prof argument is passed to parse method to allow custom parsers
-        # to use custom values added to the profile record.
-        result_row_list = parser.parse(file_stream, prof)
+        parser = new_bank_statement_parser(prof, ftype=ftype)
+        result_row_list = parser.parse(file_stream)
         # Check all key are present in account.bank.statement.line!!
         if not result_row_list:
             raise osv.except_osv(_("Nothing to import"),
